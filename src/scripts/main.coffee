@@ -358,7 +358,7 @@ class Formbuilder
   @helpers:
     defaultFieldAttrs: (field_type) ->
       attrs = {}
-      attrs[Formbuilder.options.mappings.LABEL] = ''
+      attrs[Formbuilder.options.mappings.LABEL] = 'Untitled'
       attrs[Formbuilder.options.mappings.FIELD_TYPE] = field_type
       attrs[Formbuilder.options.mappings.REQUIRED] = false
       attrs['field_options'] = {}
@@ -391,6 +391,7 @@ class Formbuilder
       MAX: 'field_options.max'
       MINLENGTH: 'field_options.minlength'
       MAXLENGTH: 'field_options.maxlength'
+      SPANWIDTH: 'field_options.spanwidth'
       LENGTH_UNITS: 'field_options.min_max_length_units'
 
     dict:

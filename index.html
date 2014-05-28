@@ -43,21 +43,7 @@
       fb = new Formbuilder({
         selector: '.fb-main',
         bootstrapData: [
-          {
-            "label": "Multi Column Text",
-            "field_type": "multicolumntext",
-            "required": false,
-            "field_options": {
-              "options": [{
-                    "label": "Label",
-                    "checked": false
-                }, {
-                    "label": "Item",
-                    "checked": false
-                }]
-              },
-            "cid": "c1"
-          }
+        {"label":"Multi Column Input","field_type":"multicolumninput","required":false,"field_options":{"options":[{"label":"To:","spanwidth":"49%"},{"label":"Date:","spanwidth":"49%"}],"include_label_option":true,"description":"This is a test description"},"cid":"c1"},{"label":"","field_type":"multicolumninput","required":false,"field_options":{"options":[{"label":"Date","spanwidth":"24%"},{"label":"Our Consol No","spanwidth":"24%"},{"label":"Our Job No","spanwidth":"24%"},{"label":"CNTR #","spanwidth":"12%"},{"label":"HB / L","checked":false,"spanwidth":"12%"}],"include_label_option":true},"cid":"c13"},{"label":"Condition of Freight:","field_type":"radio","required":false,"field_options":{"options":[{"label":"Wet","checked":false},{"label":"Dented","checked":false},{"label":"Tampered","checked":false},{"label":"Torn","checked":false},{"label":"Crushed","checked":false},{"label":"Crack","checked":false},{"label":"Punctured","checked":false}]},"cid":"c13"},{"label":"","field_type":"multicolumntext","required":false,"field_options":{"options":[{"label":"Mark & Numbers","spanwidth":"24%"},{"label":"Qty","spanwidth":"24%"},{"label":"Description of Goods","spanwidth":"24%"},{"label":"Weight / Measurement","spanwidth":"24%"}],"include_label_option":true},"cid":"c5"}
         ]
       });
 

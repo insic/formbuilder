@@ -554,7 +554,7 @@
       defaultFieldAttrs: function(field_type) {
         var attrs, _base;
         attrs = {};
-        attrs[Formbuilder.options.mappings.LABEL] = '';
+        attrs[Formbuilder.options.mappings.LABEL] = 'Untitled';
         attrs[Formbuilder.options.mappings.FIELD_TYPE] = field_type;
         attrs[Formbuilder.options.mappings.REQUIRED] = false;
         attrs['field_options'] = {};
@@ -588,6 +588,7 @@
         MAX: 'field_options.max',
         MINLENGTH: 'field_options.minlength',
         MAXLENGTH: 'field_options.maxlength',
+        SPANWIDTH: 'field_options.spanwidth',
         LENGTH_UNITS: 'field_options.min_max_length_units'
       },
       dict: {
@@ -721,32 +722,57 @@
 }).call(this);
 
 (function() {
-
+  Formbuilder.registerField('multicolumninput', {
+    order: 60,
+    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <input type='text'/>\n</span>\n<% } %>\n</div>",
+    edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true }) %>",
+    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Multi Column Input",
+    defaultAttributes: function(attrs) {
+      attrs.field_options.options = [
+        {
+          label: "",
+          spanwidth: "24%"
+        }, {
+          label: "",
+          spanwidth: "24%"
+        }, {
+          label: "",
+          spanwidth: "24%"
+        }, {
+          label: "",
+          spanwidth: "24%"
+        }
+      ];
+      attrs.field_options.include_label_option = true;
+      return attrs;
+    }
+  });
 
 }).call(this);
 
 (function() {
   Formbuilder.registerField('multicolumntext', {
-    order: 60,
-    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span>\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <input type='text'/>\n</span>\n<% } %>\n</div>",
-    edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true }) %>",
-    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> 2 Column Text",
+    order: 65,
+    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <textarea rows=\"10\" style=\"width:100%;\"></textarea>\n</span>\n<% } %>\n</div>",
+    edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true, includeRowCount: true }) %>",
+    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Multi Column Textarea",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
           label: "",
-          checked: false
+          spanwidth: "24%"
         }, {
           label: "",
-          checked: false
+          spanwidth: "24%"
         }, {
           label: "",
-          checked: false
+          spanwidth: "24%"
         }, {
           label: "",
-          checked: false
+          spanwidth: "24%"
         }
       ];
+      attrs.field_options.include_label_option = true;
       return attrs;
     }
   });
@@ -790,8 +816,8 @@
 (function() {
   Formbuilder.registerField('radio', {
     order: 15,
-    view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='radio' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
-    edit: "<%= Formbuilder.templates['edit/options']({ includeOther: true }) %>",
+    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n    <label class='fb-option'>\n      <input type='radio' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n<% } %>\n\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <span class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </span>\n<% } %>\n</div>",
+    edit: "<%= Formbuilder.templates['edit/options']() %>",
     addButton: "<span class=\"symbol\"><span class=\"fa fa-circle-o\"></span></span> Multiple Choice",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
@@ -1033,13 +1059,19 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class=\'fb-edit-section-header\'>Field Options</div>\r\n\r\n';
  if (typeof includeLabel !== 'undefined'){ ;
-__p += '\r\n  <label>\r\n    <input type=\'checkbox\' data-rv-checked=\'model.' +
+__p += '\r\n  <div>\r\n    <label>\r\n      <input type=\'checkbox\' checked="checked" data-rv-checked=\'model.' +
 ((__t = ( Formbuilder.options.mappings.INCLUDE_LABEL )) == null ? '' : __t) +
-'\' />\r\n    Show Label\r\n  </label>\r\n';
+'\' />\r\n      Show Label\r\n    </label>\r\n  </div>\r\n';
+ } ;
+__p += '\r\n\r\n';
+ if (typeof includeRowCount !== 'undefined'){ ;
+__p += '\r\n<div class=\'option\'>\r\n  <label>\r\n    <input type=\'input\' class=\'option-label-input\' data-rv-input=\'model.' +
+((__t = ( Formbuilder.options.mappings.INCLUDE_ROWCOUNT )) == null ? '' : __t) +
+'\' />\r\n    Rows\r\n  </label>\r\n</div>\r\n';
  } ;
 __p += '\r\n\r\n<div class=\'option\' data-rv-each-option=\'model.' +
 ((__t = ( Formbuilder.options.mappings.OPTIONS )) == null ? '' : __t) +
-'\'>\r\n  <input type="text" data-rv-input="option:label" class=\'option-label-input\' placeholder="Label" />\r\n  <a class="js-add-option ' +
+'\'>\r\n  <input type="text" data-rv-input="option:label" class=\'option-label-input\' placeholder="Label" />\r\n  <input type="text" data-rv-input="option:spanwidth" class=\'option-label-input\' placeholder="px/%"  style="width: 50px;"/>\r\n  <a class="js-add-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
 '" title="Add Option"><i class=\'fa fa-plus-circle\'></i></a>\r\n  <a class="js-remove-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
