@@ -20,7 +20,7 @@ Formbuilder.registerField 'multicolumninput',
   """
 
   addButton: """
-    <span class='symbol'><span class='fa fa-font'></span></span> Multi Column Input
+    <span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Input
   """
 
   defaultAttributes: (attrs) ->

@@ -1,21 +1,22 @@
 <div class='fb-edit-section-header'>Field Options</div>
 
 <% if (typeof includeLabel !== 'undefined'){ %>
-  <div>
-    <label>
-      <input type='checkbox' checked="checked" data-rv-checked='model.<%= Formbuilder.options.mappings.INCLUDE_LABEL %>' />
-      Show Label
-    </label>
+  <div style="padding-bottom: 10px;">
+    <span style="width: 48%; display: inline-block;">
+      <label>
+        <input type='checkbox' checked="checked" data-rv-checked='model.<%= Formbuilder.options.mappings.INCLUDE_LABEL %>' />
+        Show Label
+      </label>
+    </span>
+    <% if (typeof includeRowCount !== 'undefined'){ %>
+    <span style="width: 48%; text-align: right; display: inline-block;">
+      <label>
+        Rows
+        <input type='input' class='option-label-input' data-rv-input='model.<%= Formbuilder.options.mappings.ROW_COUNT %>' style="width: 50px;" />
+      </label>
+    </span>
+    <% } %>
   </div>
-<% } %>
-
-<% if (typeof includeRowCount !== 'undefined'){ %>
-<div class='option'>
-  <label>
-    <input type='input' class='option-label-input' data-rv-input='model.<%= Formbuilder.options.mappings.INCLUDE_ROWCOUNT %>' />
-    Rows
-  </label>
-</div>
 <% } %>
 
 <div class='option' data-rv-each-option='model.<%= Formbuilder.options.mappings.OPTIONS %>'>

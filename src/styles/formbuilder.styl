@@ -1,5 +1,5 @@
-$prim-color = #1abc9c
-$sec-color = #16a085
+$prim-color = #414141
+$sec-color = #EACC00
 
 $affirmitive-color = #2ecc71
 $negative-color = #e74c3c
@@ -12,7 +12,7 @@ $editing-border = darken($editing-bg, 7%)
   margin: 0;
   padding: .563rem .844rem;
   border: 0 none;
-  background: #16a085;
+  background: $prim-color;
   color: #fff;
   text-align: center;
   text-decoration: none;
@@ -130,8 +130,9 @@ $editing-border = darken($editing-bg, 7%)
   }
 
   .symbol {
-    opacity: .6;
+    //opacity: .6;
     margin: 0 .25em 0 -1em;
+    color: $sec-color;
   }
 }
 
@@ -165,7 +166,7 @@ $editing-border = darken($editing-bg, 7%)
 }
 
 .fb-field-wrapper:hover .subtemplate-wrapper {
-  border-color: #ddd;
+  border-color: $sec-color;
   border-radius: 3px;
 }
 

@@ -3,12 +3,11 @@ Formbuilder.registerField 'paragraph',
   order: 5
 
   view: """
-    <textarea class='rf-size-<%= rf.get(Formbuilder.options.mappings.SIZE) %>'></textarea>
+
   """
 
   edit: """
-    <%= Formbuilder.templates['edit/size']() %>
-    <%= Formbuilder.templates['edit/min_max_length']() %>
+  <%= Formbuilder.templates['edit/align']() %>
   """
 
   addButton: """
@@ -16,5 +15,7 @@ Formbuilder.registerField 'paragraph',
   """
 
   defaultAttributes: (attrs) ->
-    attrs.field_options.size = 'small'
+    attrs.label = ""
+    attrs.field_options.description = 'More text goes here....'
+    attrs.heading = false
     attrs

@@ -9,7 +9,7 @@ Formbuilder.registerField 'multicolumntext',
       <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>
       <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>
       <% } %>
-      <textarea rows="10" style="width:100%;"></textarea>
+      <textarea rows="<%= rf.get(Formbuilder.options.mappings.ROW_COUNT) %>" style="width:100%;"></textarea>
     </span>
     <% } %>
     </div>
@@ -20,7 +20,7 @@ Formbuilder.registerField 'multicolumntext',
   """
 
   addButton: """
-    <span class='symbol'><span class='fa fa-font'></span></span> Multi Column Textarea
+    <span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Textarea
   """
 
   defaultAttributes: (attrs) ->
@@ -38,4 +38,5 @@ Formbuilder.registerField 'multicolumntext',
       spanwidth: "24%"
     ]
     attrs.field_options.include_label_option = true;
+    attrs.field_options.row_count_option = 10;
     attrs

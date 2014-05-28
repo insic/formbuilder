@@ -577,12 +577,15 @@
         LABEL: 'label',
         FIELD_TYPE: 'field_type',
         REQUIRED: 'required',
+        HEADING: 'heading',
         ADMIN_ONLY: 'admin_only',
         OPTIONS: 'field_options.options',
         DESCRIPTION: 'field_options.description',
         INCLUDE_OTHER: 'field_options.include_other_option',
         INCLUDE_LABEL: 'field_options.include_label_option',
+        ROW_COUNT: 'field_options.row_count_option',
         INCLUDE_BLANK: 'field_options.include_blank_option',
+        ALIGN: 'field_options.align_option',
         INTEGER_ONLY: 'field_options.integer_only',
         MIN: 'field_options.min',
         MAX: 'field_options.max',
@@ -647,16 +650,6 @@
 }).call(this);
 
 (function() {
-  Formbuilder.registerField('address', {
-    order: 50,
-    view: "<div class='input-line'>\n  <span class='street'>\n    <input type='text' />\n    <label>Address</label>\n  </span>\n</div>\n\n<div class='input-line'>\n  <span class='city'>\n    <input type='text' />\n    <label>City</label>\n  </span>\n\n  <span class='state'>\n    <input type='text' />\n    <label>State / Province / Region</label>\n  </span>\n</div>\n\n<div class='input-line'>\n  <span class='zip'>\n    <input type='text' />\n    <label>Zipcode</label>\n  </span>\n\n  <span class='country'>\n    <select><option>United States</option></select>\n    <label>Country</label>\n  </span>\n</div>",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-home\"></span></span> Address"
-  });
-
-}).call(this);
-
-(function() {
   Formbuilder.registerField('checkboxes', {
     order: 10,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='checkbox' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='checkbox' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
@@ -679,44 +672,18 @@
 }).call(this);
 
 (function() {
-  Formbuilder.registerField('date', {
-    order: 20,
-    view: "<div class='input-line'>\n  <span class='month'>\n    <input type=\"text\" />\n    <label>MM</label>\n  </span>\n\n  <span class='above-line'>/</span>\n\n  <span class='day'>\n    <input type=\"text\" />\n    <label>DD</label>\n  </span>\n\n  <span class='above-line'>/</span>\n\n  <span class='year'>\n    <input type=\"text\" />\n    <label>YYYY</label>\n  </span>\n</div>",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-calendar\"></span></span> Date"
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('dropdown', {
-    order: 24,
-    view: "<select>\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_BLANK)) { %>\n    <option value=''></option>\n  <% } %>\n\n  <% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n    <option <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'selected' %>>\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </option>\n  <% } %>\n</select>",
-    edit: "<%= Formbuilder.templates['edit/options']({ includeBlank: true }) %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-caret-down\"></span></span> Dropdown",
+  Formbuilder.registerField('headingtext', {
+    order: 1,
+    view: "",
+    edit: "<%= Formbuilder.templates['edit/align']() %>",
+    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Heading Text",
     defaultAttributes: function(attrs) {
-      attrs.field_options.options = [
-        {
-          label: "",
-          checked: false
-        }, {
-          label: "",
-          checked: false
-        }
-      ];
-      attrs.field_options.include_blank_option = false;
+      attrs.label = "Heading here";
+      attrs.field_options.description = 'More text goes here....';
+      attrs.field_options.align_option = 'center';
+      attrs.heading = true;
       return attrs;
     }
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('email', {
-    order: 40,
-    view: "<input type='text' class='rf-size-<%= rf.get(Formbuilder.options.mappings.SIZE) %>' />",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-envelope-o\"></span></span> Email"
   });
 
 }).call(this);
@@ -726,7 +693,7 @@
     order: 60,
     view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <input type='text'/>\n</span>\n<% } %>\n</div>",
     edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true }) %>",
-    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Multi Column Input",
+    addButton: "<span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Input",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -753,9 +720,9 @@
 (function() {
   Formbuilder.registerField('multicolumntext', {
     order: 65,
-    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <textarea rows=\"10\" style=\"width:100%;\"></textarea>\n</span>\n<% } %>\n</div>",
+    view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <textarea rows=\"<%= rf.get(Formbuilder.options.mappings.ROW_COUNT) %>\" style=\"width:100%;\"></textarea>\n</span>\n<% } %>\n</div>",
     edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true, includeRowCount: true }) %>",
-    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Multi Column Textarea",
+    addButton: "<span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Textarea",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -773,18 +740,9 @@
         }
       ];
       attrs.field_options.include_label_option = true;
+      attrs.field_options.row_count_option = 10;
       return attrs;
     }
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('number', {
-    order: 30,
-    view: "<input type='text' />\n<% if (units = rf.get(Formbuilder.options.mappings.UNITS)) { %>\n  <%= units %>\n<% } %>",
-    edit: "<%= Formbuilder.templates['edit/min_max']() %>\n<%= Formbuilder.templates['edit/units']() %>\n<%= Formbuilder.templates['edit/integer_only']() %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-number\">123</span></span> Number"
   });
 
 }).call(this);
@@ -792,23 +750,15 @@
 (function() {
   Formbuilder.registerField('paragraph', {
     order: 5,
-    view: "<textarea class='rf-size-<%= rf.get(Formbuilder.options.mappings.SIZE) %>'></textarea>",
-    edit: "<%= Formbuilder.templates['edit/size']() %>\n<%= Formbuilder.templates['edit/min_max_length']() %>",
+    view: "",
+    edit: "<%= Formbuilder.templates['edit/align']() %>",
     addButton: "<span class=\"symbol\">&#182;</span> Paragraph",
     defaultAttributes: function(attrs) {
-      attrs.field_options.size = 'small';
+      attrs.label = "";
+      attrs.field_options.description = 'More text goes here....';
+      attrs.heading = false;
       return attrs;
     }
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('price', {
-    order: 45,
-    view: "<div class='input-line'>\n  <span class='above-line'>$</span>\n  <span class='dolars'>\n    <input type='text' />\n    <label>Dollars</label>\n  </span>\n  <span class='above-line'>.</span>\n  <span class='cents'>\n    <input type='text' />\n    <label>Cents</label>\n  </span>\n</div>",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-usd\"></span></span> Price"
   });
 
 }).call(this);
@@ -846,42 +796,20 @@
 
 }).call(this);
 
-(function() {
-  Formbuilder.registerField('text', {
-    order: 0,
-    view: "<input type='text' class='rf-size-<%= rf.get(Formbuilder.options.mappings.SIZE) %>' />",
-    edit: "<%= Formbuilder.templates['edit/size']() %>\n<%= Formbuilder.templates['edit/min_max_length']() %>",
-    addButton: "<span class='symbol'><span class='fa fa-font'></span></span> Text",
-    defaultAttributes: function(attrs) {
-      attrs.field_options.size = 'small';
-      return attrs;
-    }
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('time', {
-    order: 25,
-    view: "<div class='input-line'>\n  <span class='hours'>\n    <input type=\"text\" />\n    <label>HH</label>\n  </span>\n\n  <span class='above-line'>:</span>\n\n  <span class='minutes'>\n    <input type=\"text\" />\n    <label>MM</label>\n  </span>\n\n  <span class='above-line'>:</span>\n\n  <span class='seconds'>\n    <input type=\"text\" />\n    <label>SS</label>\n  </span>\n\n  <span class='am_pm'>\n    <select>\n      <option>AM</option>\n      <option>PM</option>\n    </select>\n  </span>\n</div>",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-clock-o\"></span></span> Time"
-  });
-
-}).call(this);
-
-(function() {
-  Formbuilder.registerField('website', {
-    order: 35,
-    view: "<input type='text' placeholder='http://' />",
-    edit: "",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-link\"></span></span> Website"
-  });
-
-}).call(this);
-
 this["Formbuilder"] = this["Formbuilder"] || {};
 this["Formbuilder"]["templates"] = this["Formbuilder"]["templates"] || {};
+
+this["Formbuilder"]["templates"]["edit/align"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class=\'fb-edit-section-header\'>Text Align</div>\r\n<select style="width: 100%;" data-rv-value="model.' +
+((__t = ( Formbuilder.options.mappings.ALIGN )) == null ? '' : __t) +
+'">\r\n  <option value="left">Left</option>\r\n  <option value="center">Center</option>\r\n  <option value="right">Right</option>\r\n  <option value="justify">Justify</option>\r\n</select>';
+
+}
+return __p
+};
 
 this["Formbuilder"]["templates"]["edit/base"] = function(obj) {
 obj || (obj = {});
@@ -927,13 +855,16 @@ return __p
 
 this["Formbuilder"]["templates"]["edit/checkboxes"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<label>\r\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
+
+ if (typeof nonInput === false){ ;
+__p += '\r\n<label>\r\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
 ((__t = ( Formbuilder.options.mappings.REQUIRED )) == null ? '' : __t) +
-'\' />\r\n  Required\r\n</label>\r\n<!-- label>\r\n  <input type=\'checkbox\' data-rv-checked=\'model.' +
-((__t = ( Formbuilder.options.mappings.ADMIN_ONLY )) == null ? '' : __t) +
-'\' />\r\n  Admin only\r\n</label -->';
+'\' />\r\n  Required\r\n</label>\r\n';
+ } ;
+__p += '\r\n\r\n';
 
 }
 return __p
@@ -941,13 +872,22 @@ return __p
 
 this["Formbuilder"]["templates"]["edit/common"] = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape;
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Label</div>\r\n\r\n<div class=\'fb-common-wrapper\'>\r\n  <div class=\'fb-label-description\'>\r\n    ' +
+__p += '<div class=\'fb-edit-section-header\'>Heading / Title</div>\r\n\r\n<div class=\'fb-common-wrapper\'>\r\n  <div class=\'fb-label-description\'>\r\n    ' +
 ((__t = ( Formbuilder.templates['edit/label_description']() )) == null ? '' : __t) +
-'\r\n  </div>\r\n  <div class=\'fb-common-checkboxes\'>\r\n    ' +
-((__t = ( Formbuilder.templates['edit/checkboxes']() )) == null ? '' : __t) +
-'\r\n  </div>\r\n  <div class=\'fb-clear\'></div>\r\n</div>\r\n';
+'\r\n  </div>\r\n  <div class=\'fb-common-checkboxes\'>\r\n  \t';
+ if (Formbuilder.options.mappings.HEADING === true) { ;
+__p += '\r\n    \t' +
+((__t = ( Formbuilder.templates['edit/checkboxes']({ nonInput: true }) )) == null ? '' : __t) +
+'\r\n    ';
+ }else{ ;
+__p += '\r\n    \t' +
+((__t = ( Formbuilder.templates['edit/checkboxes']({ nonInput: false }) )) == null ? '' : __t) +
+'\r\n    ';
+ } ;
+__p += '\r\n  </div>\r\n  <div class=\'fb-clear\'></div>\r\n</div>\r\n';
 
 }
 return __p
@@ -1059,15 +999,15 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<div class=\'fb-edit-section-header\'>Field Options</div>\r\n\r\n';
  if (typeof includeLabel !== 'undefined'){ ;
-__p += '\r\n  <div>\r\n    <label>\r\n      <input type=\'checkbox\' checked="checked" data-rv-checked=\'model.' +
+__p += '\r\n  <div style="padding-bottom: 10px;">\r\n    <span style="width: 48%; display: inline-block;">\r\n      <label>\r\n        <input type=\'checkbox\' checked="checked" data-rv-checked=\'model.' +
 ((__t = ( Formbuilder.options.mappings.INCLUDE_LABEL )) == null ? '' : __t) +
-'\' />\r\n      Show Label\r\n    </label>\r\n  </div>\r\n';
- } ;
-__p += '\r\n\r\n';
+'\' />\r\n        Show Label\r\n      </label>\r\n    </span>\r\n    ';
  if (typeof includeRowCount !== 'undefined'){ ;
-__p += '\r\n<div class=\'option\'>\r\n  <label>\r\n    <input type=\'input\' class=\'option-label-input\' data-rv-input=\'model.' +
-((__t = ( Formbuilder.options.mappings.INCLUDE_ROWCOUNT )) == null ? '' : __t) +
-'\' />\r\n    Rows\r\n  </label>\r\n</div>\r\n';
+__p += '\r\n    <span style="width: 48%; text-align: right; display: inline-block;">\r\n      <label>\r\n        Rows\r\n        <input type=\'input\' class=\'option-label-input\' data-rv-input=\'model.' +
+((__t = ( Formbuilder.options.mappings.ROW_COUNT )) == null ? '' : __t) +
+'\' style="width: 50px;" />\r\n      </label>\r\n    </span>\r\n    ';
+ } ;
+__p += '\r\n  </div>\r\n';
  } ;
 __p += '\r\n\r\n<div class=\'option\' data-rv-each-option=\'model.' +
 ((__t = ( Formbuilder.options.mappings.OPTIONS )) == null ? '' : __t) +
@@ -1226,7 +1166,9 @@ this["Formbuilder"]["templates"]["view/description"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<span class=\'help-block\'>\r\n  ' +
+__p += '<span style="text-align:' +
+((__t = ( rf.get(Formbuilder.options.mappings.ALIGN) )) == null ? '' : __t) +
+';" class=\'help-block\'>\r\n  ' +
 ((__t = ( Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.DESCRIPTION)) )) == null ? '' : __t) +
 '\r\n</span>\r\n';
 
@@ -1253,13 +1195,25 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<label>\r\n  <span>' +
+
+ if (rf.get(Formbuilder.options.mappings.HEADING)) { ;
+__p += '\r\n<h2 style="margin:0;text-align:' +
+((__t = ( rf.get(Formbuilder.options.mappings.ALIGN) )) == null ? '' : __t) +
+';">\r\n  ' +
 ((__t = ( Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.LABEL)) )) == null ? '' : __t) +
-'\r\n  ';
+'\r\n</h2>\r\n';
+ }else{ ;
+__p += '\r\n<label style="text-align:' +
+((__t = ( rf.get(Formbuilder.options.mappings.ALIGN) )) == null ? '' : __t) +
+';">\r\n  <span>\r\n  \t' +
+((__t = ( Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.LABEL)) )) == null ? '' : __t) +
+'\r\n  </span>\r\n  ';
  if (rf.get(Formbuilder.options.mappings.REQUIRED)) { ;
 __p += '\r\n    <abbr title=\'required\'>*</abbr>\r\n  ';
  } ;
 __p += '\r\n</label>\r\n';
+ } ;
+__p += '\r\n';
 
 }
 return __p

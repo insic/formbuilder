@@ -1,6 +1,14 @@
-<label>
-  <span><%= Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.LABEL)) %>
+<% if (rf.get(Formbuilder.options.mappings.HEADING)) { %>
+<h2 style="margin:0;text-align:<%= rf.get(Formbuilder.options.mappings.ALIGN) %>;">
+  <%= Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.LABEL)) %>
+</h2>
+<% }else{ %>
+<label style="text-align:<%= rf.get(Formbuilder.options.mappings.ALIGN) %>;">
+  <span>
+  	<%= Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.LABEL)) %>
+  </span>
   <% if (rf.get(Formbuilder.options.mappings.REQUIRED)) { %>
     <abbr title='required'>*</abbr>
   <% } %>
 </label>
+<% } %>
