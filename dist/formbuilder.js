@@ -586,6 +586,7 @@
         ROW_COUNT: 'field_options.row_count_option',
         INCLUDE_BLANK: 'field_options.include_blank_option',
         ALIGN: 'field_options.align_option',
+        FONTSTYLE: 'field_options.font_style_option',
         INTEGER_ONLY: 'field_options.integer_only',
         SIGNATURE_TEXT: 'field_options.signature_text',
         SIGNATURE_POSITION: 'field_options.signature_position',
@@ -593,7 +594,6 @@
         MAX: 'field_options.max',
         MINLENGTH: 'field_options.minlength',
         MAXLENGTH: 'field_options.maxlength',
-        SPANWIDTH: 'field_options.spanwidth',
         LENGTH_UNITS: 'field_options.min_max_length_units'
       },
       dict: {
@@ -827,7 +827,7 @@ __p += '<div class=\'fb-edit-section-header\'>Text Options</div>\r\n<label>Align
 ((__t = ( Formbuilder.options.mappings.ALIGN )) == null ? '' : __t) +
 '">\r\n  <option value="left">Left</option>\r\n  <option value="center">Center</option>\r\n  <option value="right">Right</option>\r\n  <option value="justify">Justify</option>\r\n</select>\r\n\r\n<label>Font Style</label>\r\n<select style="width: 100%;" data-rv-value="model.' +
 ((__t = ( Formbuilder.options.mappings.FONTSTYLE )) == null ? '' : __t) +
-'">\r\n  <option value="normal">Normal</option>\r\n  <option value="bold">Bold</option>\r\n  <option value="italic">Italic</option>\r\n  <option value="underline">Underline</option>\r\n</select>';
+'">\r\n  <option value="font-style:normal;">Normal</option>\r\n  <option value="font-weight:bold;">Bold</option>\r\n  <option value="font-style:italic;">Italic</option>\r\n  <option value="font-style:italic;font-weight:bold;">Bold &amp; Italic</option>\r\n</select>';
 
 }
 return __p
@@ -1045,9 +1045,9 @@ __p += '\r\n    <span style="width: 48%; text-align: right; display: inline-bloc
  } ;
 __p += '\r\n  </div>\r\n';
  } ;
-__p += '\r\n\r\n<div class=\'option\' data-rv-each-option=\'model.' +
+__p += '\r\n\r\n<div style="border-bottom: 1px solid #444; padding-bottom: 5px; margin-bottom: 10px; text-align: right;" class=\'option\' data-rv-each-option=\'model.' +
 ((__t = ( Formbuilder.options.mappings.OPTIONS )) == null ? '' : __t) +
-'\'>\r\n  <input type="text" data-rv-input="option:label" class=\'option-label-input\' placeholder="Label" />\r\n  <input type="text" data-rv-input="option:spanwidth" class=\'option-label-input\' placeholder="px/%"  style="width: 50px;"/>\r\n  <a class="js-add-option ' +
+'\'>\r\n  <input type="text" data-rv-input="option:label" class=\'option-label-input\' placeholder="Label" style="width: 225px;" />\r\n  <input type="text" data-rv-input="option:spanwidth" class=\'option-label-input\' placeholder="px/%"  style="width: 50px;"/>\r\n\r\n  <select style="width: 100%;" data-rv-value="option:autofill">\r\n    <option value="">Select AUTOFILL</option>\r\n    <option value="">NONE</option>\r\n    <option value="AUTO_FILL_JOB_ID">JOB_ID</option>\r\n    <option value="AUTO_FILL_ASSIGNED_TO">ASSIGNED_TO</option>\r\n    <option value="AUTO_FILL_CONSIGNEE">CONSIGNEE</option>\r\n    <option value="AUTO_FILL_DELIVER_TO">DELIVER_TO</option>\r\n    <option value="AUTO_FILL_ADDRESS">ADDRESS</option>\r\n    <option value="AUTO_FILL_ADDRESS_1">ADDRESS_1</option>\r\n    <option value="AUTO_FILL_ADDRESS_2">ADDRESS_2</option>\r\n    <option value="AUTO_FILL_POSTAL_CODE">POSTAL_CODE</option>\r\n    <option value="AUTO_FILL_PHONE">PHONE</option>\r\n    <option value="AUTO_FILL_CONTACT_PERSON">CONTACT_PERSON</option>\r\n    <option value="AUTO_FILL_EMAIL">EMAIL</option>\r\n  </select>\r\n\r\n  <a class="js-add-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
 '" title="Add Option"><i class=\'fa fa-plus-circle\'></i></a>\r\n  <a class="js-remove-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
@@ -1204,6 +1204,8 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<span style="text-align:' +
 ((__t = ( rf.get(Formbuilder.options.mappings.ALIGN) )) == null ? '' : __t) +
+';' +
+((__t = ( rf.get(Formbuilder.options.mappings.FONTSTYLE) )) == null ? '' : __t) +
 ';" class=\'help-block\'>\r\n  ' +
 ((__t = ( Formbuilder.helpers.simple_format(rf.get(Formbuilder.options.mappings.DESCRIPTION)) )) == null ? '' : __t) +
 '\r\n</span>\r\n';

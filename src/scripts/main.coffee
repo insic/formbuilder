@@ -389,6 +389,7 @@ class Formbuilder
       ROW_COUNT: 'field_options.row_count_option'
       INCLUDE_BLANK: 'field_options.include_blank_option'
       ALIGN: 'field_options.align_option'
+      FONTSTYLE: 'field_options.font_style_option'
       INTEGER_ONLY: 'field_options.integer_only'
       SIGNATURE_TEXT: 'field_options.signature_text'
       SIGNATURE_POSITION: 'field_options.signature_position'
@@ -396,7 +397,6 @@ class Formbuilder
       MAX: 'field_options.max'
       MINLENGTH: 'field_options.minlength'
       MAXLENGTH: 'field_options.maxlength'
-      SPANWIDTH: 'field_options.spanwidth'
       LENGTH_UNITS: 'field_options.min_max_length_units'
 
     dict:
