@@ -20,7 +20,7 @@
 .fb-response-fields{padding-bottom:150px}
 .fb-response-fields a.sortable-placeholder{display:block;border:1px dashed #ddd;min-height:80px;height:80px;width:100%}
 .fb-field-wrapper{cursor:pointer;position:relative;clear:both}
-.fb-field-wrapper input{border-radius:3px;border:thin solid #ddd}
+.fb-field-wrapper input{border-radius:3px;border:thin solid #aaa}
 .fb-field-wrapper:hover .actions-wrapper,.fb-field-wrapper.editing .actions-wrapper{display:block}
 .fb-field-wrapper:hover .subtemplate-wrapper{border-color:#eacc00;border-radius:3px}
 .fb-field-wrapper.editing{background-color:#ecf0f1;border-radius:3px}

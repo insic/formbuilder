@@ -803,9 +803,11 @@ this["Formbuilder"]["templates"]["edit/align"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Text Align</div>\r\n<select style="width: 100%;" data-rv-value="model.' +
+__p += '<div class=\'fb-edit-section-header\'>Text Options</div>\r\n<label>Align</label>\r\n<select style="width: 100%;" data-rv-value="model.' +
 ((__t = ( Formbuilder.options.mappings.ALIGN )) == null ? '' : __t) +
-'">\r\n  <option value="left">Left</option>\r\n  <option value="center">Center</option>\r\n  <option value="right">Right</option>\r\n  <option value="justify">Justify</option>\r\n</select>';
+'">\r\n  <option value="left">Left</option>\r\n  <option value="center">Center</option>\r\n  <option value="right">Right</option>\r\n  <option value="justify">Justify</option>\r\n</select>\r\n\r\n<label>Font Style</label>\r\n<select style="width: 100%;" data-rv-value="model.' +
+((__t = ( Formbuilder.options.mappings.FONTSTYLE )) == null ? '' : __t) +
+'">\r\n  <option value="normal">Normal</option>\r\n  <option value="bold">Bold</option>\r\n  <option value="italic">Italic</option>\r\n  <option value="underline">Underline</option>\r\n</select>';
 
 }
 return __p
