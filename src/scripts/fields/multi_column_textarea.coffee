@@ -20,7 +20,7 @@ Formbuilder.registerField 'multicolumntext',
   """
 
   addButton: """
-    <span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Textarea
+    <span class='symbol'><span class='fa fa-square-o'></span></span> Textarea
   """
 
   defaultAttributes: (attrs) ->

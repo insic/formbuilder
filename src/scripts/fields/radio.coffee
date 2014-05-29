@@ -30,7 +30,7 @@ Formbuilder.registerField 'radio',
   """
 
   addButton: """
-    <span class="symbol"><span class="fa fa-circle-o"></span></span> Multiple Choice
+    <span class="symbol"><span class="fa fa-circle-o"></span></span> Radio Button
   """
 
   defaultAttributes: (attrs) ->

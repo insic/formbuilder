@@ -66,3 +66,8 @@
 .response-field-time .hours,.response-field-time .minutes,.response-field-time .seconds{width:50px}
 .response-field-checkboxes .fb-option,.response-field-radio .fb-option{margin-bottom:5px;display:inline-block;font-size:13px}
 .response-field-website input{width:200px}
+.signature-holder{width:250px;height:100px;float:right}
+.signature-box{border-bottom:1px solid #aaa;height:70px}
+.signature-holder p{text-align:center;margin:5px 0}
+.clearfix:before,.clearfix:after{display:table;content:" "}
+.clearfix:after{clear:both}

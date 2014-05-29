@@ -390,6 +390,8 @@ class Formbuilder
       INCLUDE_BLANK: 'field_options.include_blank_option'
       ALIGN: 'field_options.align_option'
       INTEGER_ONLY: 'field_options.integer_only'
+      SIGNATURE_TEXT: 'field_options.signature_text'
+      SIGNATURE_POSITION: 'field_options.signature_position'
       MIN: 'field_options.min'
       MAX: 'field_options.max'
       MINLENGTH: 'field_options.minlength'

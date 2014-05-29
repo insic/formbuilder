@@ -587,6 +587,8 @@
         INCLUDE_BLANK: 'field_options.include_blank_option',
         ALIGN: 'field_options.align_option',
         INTEGER_ONLY: 'field_options.integer_only',
+        SIGNATURE_TEXT: 'field_options.signature_text',
+        SIGNATURE_POSITION: 'field_options.signature_position',
         MIN: 'field_options.min',
         MAX: 'field_options.max',
         MINLENGTH: 'field_options.minlength',
@@ -654,7 +656,7 @@
     order: 10,
     view: "<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n  <div>\n    <label class='fb-option'>\n      <input type='checkbox' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n  </div>\n<% } %>\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <div class='other-option'>\n    <label class='fb-option'>\n      <input type='checkbox' />\n      Other\n    </label>\n\n    <input type='text' />\n  </div>\n<% } %>",
     edit: "<%= Formbuilder.templates['edit/options']({ includeOther: true }) %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-square-o\"></span></span> Checkboxes",
+    addButton: "<span class=\"symbol\"><span class=\"fa fa-check-square-o\"></span></span> Checkboxes",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -693,7 +695,7 @@
     order: 60,
     view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <input type='text'/>\n</span>\n<% } %>\n</div>",
     edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true }) %>",
-    addButton: "<span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Input",
+    addButton: "<span class='symbol'><span class='fa fa-bars'></span></span> Input",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -722,7 +724,7 @@
     order: 65,
     view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n<span style=\"width:<%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].spanwidth %>;\">\n  <% if (rf.get(Formbuilder.options.mappings.INCLUDE_LABEL)) { %>\n  <label><%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>&nbsp;</label>\n  <% } %>\n  <textarea rows=\"<%= rf.get(Formbuilder.options.mappings.ROW_COUNT) %>\" style=\"width:100%;\"></textarea>\n</span>\n<% } %>\n</div>",
     edit: "<%= Formbuilder.templates['edit/text_options']({ includeLabel: true, includeRowCount: true }) %>",
-    addButton: "<span class='symbol'><span class='fa fa-bars'></span></span> Multi Column Textarea",
+    addButton: "<span class='symbol'><span class='fa fa-square-o'></span></span> Textarea",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -768,7 +770,7 @@
     order: 15,
     view: "<div class=\"input-line\">\n<% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>\n    <label class='fb-option'>\n      <input type='radio' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick=\"javascript: return false;\" />\n      <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>\n    </label>\n<% } %>\n\n\n<% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>\n  <span class='other-option'>\n    <label class='fb-option'>\n      <input type='radio' />\n      Other\n    </label>\n\n    <input type='text' />\n  </span>\n<% } %>\n</div>",
     edit: "<%= Formbuilder.templates['edit/options']() %>",
-    addButton: "<span class=\"symbol\"><span class=\"fa fa-circle-o\"></span></span> Multiple Choice",
+    addButton: "<span class=\"symbol\"><span class=\"fa fa-circle-o\"></span></span> Radio Button",
     defaultAttributes: function(attrs) {
       attrs.field_options.options = [
         {
@@ -792,6 +794,24 @@
     view: "<label class='section-name'><%= rf.get(Formbuilder.options.mappings.LABEL) %></label>\n<p><%= rf.get(Formbuilder.options.mappings.DESCRIPTION) %></p>",
     edit: "<div class='fb-edit-section-header'>Label</div>\n<input type='text' data-rv-input='model.<%= Formbuilder.options.mappings.LABEL %>' />\n<textarea data-rv-input='model.<%= Formbuilder.options.mappings.DESCRIPTION %>'\n  placeholder='Add a longer description to this field'></textarea>",
     addButton: "<span class='symbol'><span class='fa fa-minus'></span></span> Section Break"
+  });
+
+}).call(this);
+
+(function() {
+  Formbuilder.registerField('signature', {
+    order: 5,
+    view: "<div class=\"signature-wrapper clearfix\">\n  <div style=\"float:<%= rf.get(Formbuilder.options.mappings.SIGNATURE_POSITION) %>\" class=\"signature-holder\">\n    <div class=\"signature-box\" id=\"AUTO_FILL_SIGNATURE\" name=\"AUTO_FILL_SIGNATURE\"></div>\n    <p><%= rf.get(Formbuilder.options.mappings.SIGNATURE_TEXT) %></p>\n  </div>\n</div>",
+    edit: "<%= Formbuilder.templates['edit/signature_options']() %>",
+    addButton: "<span class=\"symbol\"><span class='fa fa-pencil'></span></span> Signature",
+    defaultAttributes: function(attrs) {
+      attrs.label = "";
+      attrs.field_options.description = '';
+      attrs.field_options.signature_text = 'Signature';
+      attrs.field_options.signature_position = 'right';
+      attrs.heading = false;
+      return attrs;
+    }
   });
 
 }).call(this);
@@ -977,6 +997,20 @@ __p += '\r\n  <label>\r\n    <input type=\'checkbox\' data-rv-checked=\'model.' 
 __p += '\r\n\r\n<div class=\'fb-bottom-add\'>\r\n  <a class="js-add-option ' +
 ((__t = ( Formbuilder.options.BUTTON_CLASS )) == null ? '' : __t) +
 '">Add option</a>\r\n</div>\r\n';
+
+}
+return __p
+};
+
+this["Formbuilder"]["templates"]["edit/signature_options"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class=\'fb-edit-section-header\'>Signature Options</div>\r\n\r\n<div>\r\n  <label>\r\n    Text\r\n    <input type=\'input\' class=\'option-label-input\' data-rv-input=\'model.' +
+((__t = ( Formbuilder.options.mappings.SIGNATURE_TEXT )) == null ? '' : __t) +
+'\' style="width: 100%;" />\r\n  </label>\r\n</div>\r\n<div>\r\n<label>Position</label>\r\n<select style="width: 100%;" data-rv-value="model.' +
+((__t = ( Formbuilder.options.mappings.SIGNATURE_POSITION )) == null ? '' : __t) +
+'">\r\n  <option value="left">Left</option>\r\n  <option value="right">Right</option>\r\n</select>\r\n</div>';
 
 }
 return __p
